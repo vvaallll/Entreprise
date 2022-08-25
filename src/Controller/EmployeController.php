@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -131,4 +132,16 @@ if($form->isSubmitted() && $form->isValid()) {
             ]);
     }
 
-}
+    #[Route('/supprimer-un-employe/{id}', name: 'delete_employe', methods: ['GET'])]
+    public function deleteEmploye(Employe $employe, EntityManagerInterface $entityManager): RedirectResponse
+    {
+        // pour supprimer dans doctrine on utlilise la methode remove() de $entityManager
+            $entityManager->remove($employe);
+            // on doit flush pour effectuer la suppression
+            $entityManager->flush();
+
+            //on redirige sur la page d'accueil
+            // La methode redirectionToRoute nous retourn un objet de type edirectresponse
+            return $this->redirectToRoute('default_home');
+    }
+} //end class
