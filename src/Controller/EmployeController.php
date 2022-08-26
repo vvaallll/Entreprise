@@ -141,7 +141,7 @@ if($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
             //on redirige sur la page d'accueil
-            // La methode redirectionToRoute nous retourn un objet de type edirectresponse
+            // La methode redirectionToRoute nous retourn un objet de type Redirectresponse
             return $this->redirectToRoute('default_home');
     }
 } //end class
